@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:plntz/model/layout_object.dart';
+import 'package:plntz/widgets/zoomable_wrapper_widget.dart';
 
 import 'widgets/layout_object_widget.dart';
 
@@ -23,28 +24,43 @@ class GardenLayout extends StatelessWidget {
     List<LayoutObject> layoutObjects = [];
     return Scaffold(
       body: Center(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(width: 600, height: 400, color: Colors.amber.shade100),
-            ...layoutObjects
-                .map(
-                  (layoutObject) => Positioned(
-                    top: layoutObject.offset.dy,
-                    left: layoutObject.offset.dx,
-                    child: GestureDetector(
-                      // TODO fix unique keys
-                      child: LayoutObjectWidget(
-                        key: const Key("aaa"),
-                        layoutObject: layoutObject,
-                      ),
-                    ),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                flex: 8,
+                child: ZoomableWidget(
+                  key: const Key("asdfasfd"),
+                  child: Stack(
+                    children: [
+                      Container(width: 200, height: 200, color: Colors.amber.shade100),
+                      ...layoutObjects
+                          .map(
+                            (layoutObject) => Positioned(
+                              top: layoutObject.offset.dy,
+                              left: layoutObject.offset.dx,
+                              child: GestureDetector(
+                                // TODO fix unique keys
+                                child: LayoutObjectWidget(
+                                  key: const Key("aaa"),
+                                  layoutObject: layoutObject,
+                                ),
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ],
                   ),
-                )
-                .toList(),
-          ],
-        ),
+                ),
+              ),
+              Expanded(
+                  flex: 2,
+                  child: Container(
+                    color: Colors.brown,
+                    child: const Text("Menu with placable items"),
+                  ))
+            ]),
       ),
     );
   }

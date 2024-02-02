@@ -39,6 +39,7 @@ dependencies:
   flutter_hooks: ^0.20.4
   freezed: ^2.4.6
   freezed_annotation: ^2.4.1
+  matrix_gesture_detector: ^0.2.0-nullsafety.1
 
 dev_dependencies:
   flutter_test:
