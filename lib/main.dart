@@ -41,14 +41,21 @@ class GardenLayout extends StatelessWidget {
                   flex: 8,
                   child: Container(
                     padding: const EdgeInsets.all(8.0),
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color.fromARGB(255, 182, 194, 141),
                     ),
                     child: ZoomableWidget(
                       key: const Key("asdfasfd"),
                       child: Stack(
                         children: [
-                          Container(width: 200, height: 200, color: Colors.amber.shade100),
+                          Container(
+                            width: 200,
+                            height: 200,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                color: const Color.fromARGB(255, 218, 218, 218),
+                                border: Border.all(color: Colors.black, width: 2)),
+                          ),
                           ...layoutObjects
                               .map(
                                 (layoutObject) => Positioned(
