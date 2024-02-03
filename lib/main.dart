@@ -23,7 +23,14 @@ class GardenLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<LayoutObject> layoutObjects = [];
-    List<String> placeableItems = ["Item1", "Item2", "Item3"];
+    const List<Icon> placeableIconsMock = [
+      Icon(Icons.bakery_dining),
+      Icon(Icons.ac_unit_rounded),
+      Icon(Icons.dashboard),
+      Icon(Icons.face),
+      Icon(Icons.handshake),
+      Icon(Icons.mobile_off)
+    ];
     return Scaffold(
       body: Center(
         child: Column(
@@ -31,44 +38,50 @@ class GardenLayout extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Expanded(
-                flex: 8,
-                child: ZoomableWidget(
-                  key: const Key("asdfasfd"),
-                  child: Stack(
-                    children: [
-                      Container(width: 200, height: 200, color: Colors.amber.shade100),
-                      ...layoutObjects
-                          .map(
-                            (layoutObject) => Positioned(
-                              top: layoutObject.offset.dy,
-                              left: layoutObject.offset.dx,
-                              child: GestureDetector(
-                                // TODO fix unique keys
-                                child: LayoutObjectWidget(
-                                  key: const Key("aaa"),
-                                  layoutObject: layoutObject,
-                                ),
-                              ),
-                            ),
-                          )
-                          .toList(),
-                    ],
-                  ),
-                ),
-              ),
-              Expanded(
-                  flex: 2,
+                  flex: 8,
                   child: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 182, 194, 141),
+                    ),
+                    child: ZoomableWidget(
+                      key: const Key("asdfasfd"),
+                      child: Stack(
+                        children: [
+                          Container(width: 200, height: 200, color: Colors.amber.shade100),
+                          ...layoutObjects
+                              .map(
+                                (layoutObject) => Positioned(
+                                  top: layoutObject.offset.dy,
+                                  left: layoutObject.offset.dx,
+                                  child: GestureDetector(
+                                    // TODO fix unique keys
+                                    child: LayoutObjectWidget(
+                                      key: const Key("aaa"),
+                                      layoutObject: layoutObject,
+                                    ),
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                        ],
+                      ),
+                    ),
+                  )),
+              Expanded(
+                  // flex: 2,
+                  child: Container(
+                      height: 120,
                       color: Colors.brown,
                       child: ListView.builder(
-                        itemCount: 10,
+                        itemCount: placeableIconsMock.length,
                         physics: const ClampingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
                         itemBuilder: (BuildContext context, int index) {
                           return Container(
                             width: 100,
-                            child: const Card(elevation: 10, child: Icon(Icons.bakery_dining)),
+                            child: Card(elevation: 10, child: placeableIconsMock[index]),
                           );
                         },
                       )))
