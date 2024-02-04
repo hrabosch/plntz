@@ -48,13 +48,20 @@ class GardenLayout extends StatelessWidget {
                       key: const Key("asdfasfd"),
                       child: Stack(
                         children: [
-                          Container(
-                            width: 200,
-                            height: 200,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0),
-                                color: const Color.fromARGB(255, 218, 218, 218),
-                                border: Border.all(color: Colors.black, width: 2)),
+                          DragTarget<Icon>(
+                            builder: ((context, candidateData, rejectedData) {
+                              return Container(
+                                width: 200,
+                                height: 200,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    color: const Color.fromARGB(255, 218, 218, 218),
+                                    border: Border.all(color: Colors.black, width: 2)),
+                              );
+                            }),
+                            // onAccept: (data) {
+                            //   //print(data);
+                            // },
                           ),
                           ...layoutObjects
                               .map(
@@ -87,9 +94,14 @@ class GardenLayout extends StatelessWidget {
                         shrinkWrap: true,
                         itemBuilder: (BuildContext context, int index) {
                           return Container(
-                            width: 100,
-                            child: Card(elevation: 10, child: placeableIconsMock[index]),
-                          );
+                              width: 100,
+                              child: Draggable<Icon>(
+                                feedback: placeableIconsMock[index],
+                                child: Card(
+                                  elevation: 10,
+                                  child: placeableIconsMock[index],
+                                ),
+                              ));
                         },
                       )))
             ]),
