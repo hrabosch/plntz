@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:plntz/model/layout_object.dart';
 import 'package:plntz/widgets/zoomable_wrapper_widget.dart';
 
 import 'widgets/layout_object_widget.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
   runApp(
     ProviderScope(
       child: MaterialApp(
